@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Loggy.AppHost/Loggy.AppHost.csproj" />
+    <Project Path="src/Loggy.Core/Loggy.Core.csproj" />
+    <Project Path="src/Loggy.ServiceDefaults/Loggy.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Loggy.Core.Tests/Loggy.Core.Tests.csproj" />
+  </Folder>
+</Solution>
