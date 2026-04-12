@@ -29,7 +29,7 @@ public static class EventsEndpoint
             DateTime? from,
             DateTime? to,
             string? message,
-            int limit,
+            int? limit,
             LoggyDbContext db,
             CancellationToken cancellationToken) =>
         {
@@ -52,7 +52,7 @@ public static class EventsEndpoint
                 query = query.Where(e => e.Message.Contains(message));
             }
 
-            var takeLimit = Math.Max(limit, 99);
+            var takeLimit = Math.Max(limit ?? 0, 99);
 
             var res = await query
             .Take(takeLimit)
