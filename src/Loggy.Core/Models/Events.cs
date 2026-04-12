@@ -19,3 +19,10 @@ public enum EventType
     /// <summary>Actual $$$$ movement</summary>
     Transaction
 }
+
+public class EventDto
+{
+    public required EventType Type { get; set; }
+    public required decimal Amount { get; set; }
+    public string Message { get; set; } = string.Empty;
+}
