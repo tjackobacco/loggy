@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Loggy.Api/Loggy.Api.csproj" />
     <Project Path="src/Loggy.AppHost/Loggy.AppHost.csproj" />
     <Project Path="src/Loggy.Core/Loggy.Core.csproj" />
     <Project Path="src/Loggy.ServiceDefaults/Loggy.ServiceDefaults.csproj" />
