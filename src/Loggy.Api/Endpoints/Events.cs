@@ -58,5 +58,12 @@ public static class EventsEndpoint
             .Take(takeLimit)
             .ToListAsync(cancellationToken);
         });
+
+        group.MapGet("/{id:guid}", async (Guid id, LoggyDbContext db, CancellationToken cancellation) =>
+        {
+            var query = db.Events.AsNoTracking();
+            var res = await query.FirstOrDefaultAsync(e => e.Id == id, cancellation);
+            return res is not null ? Results.Ok(res) : Results.NotFound();
+        });
     }
 }
