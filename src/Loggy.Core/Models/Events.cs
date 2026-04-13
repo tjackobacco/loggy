@@ -27,7 +27,6 @@ public class EventDto
 {
     [Required(AllowEmptyStrings = false)]
     [StringLength(maximumLength: 64, MinimumLength = 1)]
-    [RegularExpression(@"^\S.*$|^\S$", ErrorMessage = "AccountId cannot be blank")]
     public required string AccountId { get; set; }
 
     [Required, AllowedValues(EventType.Reservation, EventType.ReservationReleased, EventType.Transaction)]
