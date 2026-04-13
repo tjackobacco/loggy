@@ -71,6 +71,10 @@ public static class EventsEndpoint
 
         group.MapGet("/{id:guid}", async (Guid id, LoggyDbContext db, CancellationToken cancellation) =>
         {
+            if (id == Guid.Empty)
+            {
+                return Results.BadRequest("id can't be empty");
+            }
             var query = db.Events.AsNoTracking();
             var res = await query.FirstOrDefaultAsync(e => e.Id == id, cancellation);
             return res is not null ? Results.Ok(res) : Results.NotFound();
