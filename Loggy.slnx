@@ -6,6 +6,6 @@
     <Project Path="src/Loggy.ServiceDefaults/Loggy.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Loggy.Core.Tests/Loggy.Core.Tests.csproj" />
+    <Project Path="tests/Loggy.Tests/Loggy.Tests.csproj" Id="7050d86f-5345-4dfd-9835-55c0cf869e41" />
   </Folder>
 </Solution>
