@@ -20,11 +20,8 @@ localhost:8080
 - GET /events/{guid}
 
 Example
-```sh
-curl -i -X POST http://localhost:8080/events ^
-  -H "Content-Type: application/json" ^
-  -d "{\"type\":\"Transaction\",\"amount\":-999.0,\"accountId\":\"acc-1\",\"message\":\"DLC battlebass premium\"}"
-```
-```sh
-curl "http://localhost:8080/events?type=Transaction&limit=10"
+```bash
+  curl -i -X POST http://localhost:8080/events -H "Content-Type: application/json" -d "{\"accountId\":\"acc-1\",\"type\":3,\"amount\":-250.50,\"message\":\"Grocery store\"}"
+
+  curl "http://localhost:8080/events?accountId=acc-1&type=3&limit=10"
 ```
