@@ -12,7 +12,7 @@ namespace Loggy.Tests
             using var factory = new LoggyApiFactory();
             var client = factory.CreateClient();
 
-            var dto = new EventDto { Type = EventType.Transaction, Amount = -50m, Message = "yyyyyy" };
+            var dto = new EventDto { AccountId = "acc-1", Type = EventType.Transaction, Amount = -50m, Message = "yyyyyy" };
 
             var response = await client.PostAsJsonAsync("/events", dto);
 
@@ -39,7 +39,7 @@ namespace Loggy.Tests
             using var factory = new LoggyApiFactory();
             var client = factory.CreateClient();
 
-            var dto = new EventDto { Type = EventType.Reservation, Amount = 100m, Message = "xxxxx" };
+            var dto = new EventDto { AccountId = "acc-1", Type = EventType.Reservation, Amount = 100m, Message = "xxxxx" };
             var postResponse = await client.PostAsJsonAsync("/events", dto);
             var created = await postResponse.Content.ReadFromJsonAsync<Event>();
 
@@ -69,9 +69,9 @@ namespace Loggy.Tests
             using var factory = new LoggyApiFactory();
             var client = factory.CreateClient();
 
-            await client.PostAsJsonAsync("/events", new EventDto { Type = EventType.Transaction, Amount = -10m });
-            await client.PostAsJsonAsync("/events", new EventDto { Type = EventType.Reservation, Amount = 50m });
-            await client.PostAsJsonAsync("/events", new EventDto { Type = EventType.Transaction, Amount = -20m });
+            await client.PostAsJsonAsync("/events", new EventDto { AccountId = "acc-1", Type = EventType.Transaction, Amount = -10m });
+            await client.PostAsJsonAsync("/events", new EventDto { AccountId = "acc-1", Type = EventType.Reservation, Amount = 50m });
+            await client.PostAsJsonAsync("/events", new EventDto { AccountId = "acc-1", Type = EventType.Transaction, Amount = -20m });
 
             var transactions = await client.GetFromJsonAsync<List<Event>>($"/events?type={(int)EventType.Transaction}");
 
@@ -88,12 +88,14 @@ namespace Loggy.Tests
 
             await client.PostAsJsonAsync("/events", new EventDto
             {
+                AccountId = "acc-1",
                 Type = EventType.Transaction,
                 Amount = -10m,
                 Message = "One sandwich"
             });
             await client.PostAsJsonAsync("/events", new EventDto
             {
+                AccountId = "acc-1",
                 Type = EventType.Transaction,
                 Amount = -20m,
                 Message = "Hospital bills"

@@ -12,8 +12,10 @@ public class LoggyDbContext(DbContextOptions<LoggyDbContext> options) : DbContex
         //base.OnModelCreating(modelBuilder);
         var entity = modelBuilder.Entity<Event>();
         entity.HasKey(e => e.Id);
+        entity.Property(e => e.AccountId).IsRequired();
         entity.Property(e => e.Amount).HasPrecision(18, 4);
         entity.Property(e => e.Type).IsRequired();
         entity.HasIndex(e => e.Timestamp);
+        entity.HasIndex(e => e.AccountId);
     }
 }

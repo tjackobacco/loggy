@@ -14,6 +14,7 @@ public static class EventsEndpoint
             var @event = new Event
             {
                 Id = Guid.NewGuid(),
+                AccountId = eventDto.AccountId,
                 Type = eventDto.Type,
                 Timestamp = DateTime.UtcNow,
                 Amount = eventDto.Amount,
@@ -25,7 +26,8 @@ public static class EventsEndpoint
             return Results.Created($"/events/{@event.Id}", @event);
         });
 
-        group.MapGet("/", async (EventType? type,
+        group.MapGet("/", async (string? accountId,
+            EventType? type,
             DateTime? from,
             DateTime? to,
             string? message,
@@ -35,6 +37,10 @@ public static class EventsEndpoint
         {
             var query = db.Events.AsNoTracking();
 
+            if (!string.IsNullOrEmpty(accountId))
+            {
+                query = query.Where(e => e.AccountId == accountId);
+            }
             if (type is not null)
             {
                 query = query.Where(e => e.Type == type);
