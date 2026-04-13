@@ -73,11 +73,11 @@ public static class EventsEndpoint
         {
             if (id == Guid.Empty)
             {
-                return Results.BadRequest("id can't be empty");
+                return Results.BadRequest(new { status = StatusCodes.Status400BadRequest, message = "id can't be empty" });
             }
             var query = db.Events.AsNoTracking();
             var res = await query.FirstOrDefaultAsync(e => e.Id == id, cancellation);
-            return res is not null ? Results.Ok(res) : Results.NotFound();
+            return res is not null ? Results.Ok(res) : Results.NotFound(new { status = StatusCodes.Status404NotFound, message = "Event not found" });
         });
     }
 }
