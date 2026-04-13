@@ -53,6 +53,10 @@ public static class EventsEndpoint
             {
                 query = query.Where(e => e.Timestamp <= to);
             }
+            if (from is not null && to is not null && from > to)
+            {
+                return Results.BadRequest(new { statusCode = StatusCodes.Status400BadRequest, message = "from date can't be later than to date" });
+            }
             if (!string.IsNullOrEmpty(message))
             {
                 query = query.Where(e => e.Message.Contains(message));
