@@ -19,6 +19,7 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
         logger.LogError("Error {Message}", exception.Message);
 
         httpContext.Response.StatusCode = status;
+        // Logging request id (or similar identifier) would be nice to add
         await httpContext.Response.WriteAsJsonAsync(new { message, statusCode = status });
 
         return true;
