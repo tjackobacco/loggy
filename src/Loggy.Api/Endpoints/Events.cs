@@ -61,6 +61,8 @@ public static class EventsEndpoint
             var takeLimit = Math.Max(limit ?? 0, 99);
 
             var res = await query
+            .OrderBy(x => x.Timestamp)
+            .ThenBy(y => y.Id)
             .Take(takeLimit)
             .ToListAsync(cancellationToken);
 
