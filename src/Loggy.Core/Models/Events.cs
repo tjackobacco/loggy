@@ -1,4 +1,6 @@
-﻿namespace Loggy.Core.Models.Events;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Loggy.Core.Models.Events;
 
 public class Event
 {
@@ -23,8 +25,17 @@ public enum EventType
 
 public class EventDto
 {
+    [Required(AllowEmptyStrings = false)]
+    [StringLength(maximumLength: 64, MinimumLength = 1)]
+    [RegularExpression(@"^\S.*$|^\S$", ErrorMessage = "AccountId cannot be blank")]
     public required string AccountId { get; set; }
+
+    [Required, AllowedValues(EventType.Reservation, EventType.ReservationReleased, EventType.Transaction)]
     public required EventType Type { get; set; }
+
+    [Required]
     public required decimal Amount { get; set; }
+
+    [StringLength(256)]
     public string Message { get; set; } = string.Empty;
 }
