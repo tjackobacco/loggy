@@ -58,7 +58,7 @@ public static class EventsEndpoint
                 query = query.Where(e => e.Message.Contains(message));
             }
 
-            var takeLimit = Math.Max(limit ?? 0, 99);
+            var takeLimit = limit ?? 999;
 
             var res = await query
             .OrderBy(x => x.Timestamp)
