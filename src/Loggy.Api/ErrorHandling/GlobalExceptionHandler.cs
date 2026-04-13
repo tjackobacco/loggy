@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using System.Text.Json;
 
 namespace Loggy.Api.ErrorHandling;
 
@@ -10,13 +11,15 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
         var (status, message) = exception switch
         {
             BadHttpRequestException => (StatusCodes.Status400BadRequest, "Bad request"),
+            JsonException => (StatusCodes.Status400BadRequest, "Invalid JSON format"),
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Not found"),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
         };
 
         logger.LogError("Error {Message}", exception.Message);
 
-        await httpContext.Response.WriteAsJsonAsync(new { message, status });
+        httpContext.Response.StatusCode = status;
+        await httpContext.Response.WriteAsJsonAsync(new { message, statusCode = status });
 
         return true;
     }
